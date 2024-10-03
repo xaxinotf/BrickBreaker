@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BrickBreaker.MainPage"
+             Title="Brick Breaker">
+    <Grid>
+        <!-- Панель індикаторів -->
+        <Grid x:Name="ScorePanel" BackgroundColor="LightGray" HeightRequest="60" VerticalOptions="Start" IsVisible="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="ScoreLabel" Text="Рахунок: 0" FontSize="18" TextColor="Black" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label x:Name="LivesLabel" Text="Життя: 3" FontSize="18" TextColor="Black" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label x:Name="HighScoreLabel" Text="Рекорд: 0" FontSize="18" TextColor="Black" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
+
+        <!-- Меню гри -->
+        <StackLayout x:Name="StartMenu" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="True">
+            <Label Text="Brick Breaker" FontSize="36" HorizontalOptions="Center" TextColor="Blue"/>
+            <Label Text="Виберіть рівень складності:" FontSize="24" HorizontalOptions="Center"/>
+            <Button Text="Легкий" FontSize="20" Clicked="OnEasyButtonClicked"/>
+            <Button Text="Середній" FontSize="20" Clicked="OnMediumButtonClicked"/>
+            <Button Text="Важкий" FontSize="20" Clicked="OnHardButtonClicked"/>
+            <Label Text="Таблиця рекордів:" FontSize="24" HorizontalOptions="Center"/>
+            <Button Text="Запустити знову" x:Name="RetryButton" FontSize="20" Clicked="OnRetryButtonClicked" IsVisible="False"/>
+        </StackLayout>
+
+        <!-- Основне ігрове поле -->
+        <AbsoluteLayout x:Name="GameLayout" IsVisible="False">
+            <!-- М'яч -->
+            <Ellipse x:Name="Ball" Fill="Red" WidthRequest="20" HeightRequest="20" />
+
+            <!-- Ракетка з підтримкою жестів -->
+            <BoxView x:Name="Paddle" Color="Blue" WidthRequest="100" HeightRequest="20">
+                <BoxView.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="OnPanUpdated"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <!-- Бонуси, які випадають із блоків -->
+            <BoxView x:Name="BonusLife" Color="Green" WidthRequest="20" HeightRequest="20" IsVisible="False"/>
+            <BoxView x:Name="BonusMultiBall" Color="Yellow" WidthRequest="20" HeightRequest="20" IsVisible="False"/>
+            <BoxView x:Name="BonusPaddleExpand" Color="Orange" WidthRequest="20" HeightRequest="20" IsVisible="False"/>
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>
